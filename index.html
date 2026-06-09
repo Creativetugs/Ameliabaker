@@ -1,1 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amalie Baker | Textured Digital Portraiture & Fine Art Gallery</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond for elegant serif, Inter for modern sans-serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            gold: '#B58920', // Refined gallery gold for text details
+                            goldHover: '#967016',
+                            lightBg: '#FAFAFA', // Clean white gallery background
+                            cardBg: '#FFFFFF', // Clean white cards
+                            borderLight: '#E5E7EB', // Subtle light grey border
+                            softGrey: '#52525B', // Dark grey for readabilty on light theme
+                            crimson: '#BE123C',
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(250, 250, 250, 1)), url('https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/homebanner.jpg')"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom smooth hover and glow effects */
+        .glow-hover:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+        .text-glow {
+            text-shadow: 0 0 1px rgba(181, 137, 32, 0.1);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAFAFA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4D4D8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #18181B;
+        }
+    </style>
+</head>
+<body class="bg-brand-lightBg text-neutral-800 font-sans selection:bg-neutral-900 selection:text-white overflow-x-hidden">
 
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 pointer-events-none"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-40 bg-white/90 backdrop-blur-md border-b border-neutral-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex flex-col">
+                <span class="font-serif text-2xl tracking-widest text-neutral-900 font-bold text-glow">AMALIE BAKER</span>
+                <span class="text-[10px] tracking-[0.3em] text-brand-gold font-medium uppercase -mt-1">Fine Art & Portraiture</span>
+            </a>
+            
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-semibold text-neutral-600">
+                <a href="#about" class="hover:text-black transition">About</a>
+                <a href="#usp" class="hover:text-black transition">Our Texture</a>
+                <a href="#gallery" class="hover:text-black transition">Gallery</a>
+                <a href="#estimator" class="hover:text-black transition">Pricing Tool</a>
+                <a href="#contact" class="hover:text-black transition">Inquire</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <a href="#estimator" class="hidden sm:inline-flex items-center px-6 py-2.5 text-xs tracking-widest uppercase font-bold bg-neutral-950 text-white hover:bg-neutral-800 transition duration-300">
+                    Commission Art
+                </a>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-neutral-800 p-2 hover:text-black transition focus:outline-none" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-neutral-200 px-6 py-6 space-y-4 text-center shadow-lg">
+            <a href="#about" class="block text-neutral-600 hover:text-black tracking-widest uppercase text-xs py-2">About</a>
+            <a href="#usp" class="block text-neutral-600 hover:text-black tracking-widest uppercase text-xs py-2">Our Texture</a>
+            <a href="#gallery" class="block text-neutral-600 hover:text-black tracking-widest uppercase text-xs py-2">Gallery</a>
+            <a href="#estimator" class="block text-neutral-600 hover:text-black tracking-widest uppercase text-xs py-2">Pricing Tool</a>
+            <a href="#contact" class="block text-neutral-600 hover:text-black tracking-widest uppercase text-xs py-2">Inquire</a>
+            <a href="#estimator" class="block w-full text-center py-3.5 bg-neutral-950 text-white font-bold uppercase text-xs tracking-widest mt-4">Commission Art</a>
+        </div>
+    </header>
+
+    <!-- Hero / Showcase Section -->
+    <section class="relative min-h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center pt-24 pb-16">
+        <!-- Ambient overlay for clean light layout -->
+        <div class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent pointer-events-none"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Hero Left: Typography & Philosophy -->
+            <div class="lg:col-span-7 space-y-8 text-left">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1 bg-neutral-100 border border-neutral-200 rounded-full">
+                    <span class="w-1.5 h-1.5 bg-brand-gold rounded-full animate-ping"></span>
+                    <span class="text-[10px] tracking-widest text-neutral-800 uppercase font-bold">Fine Art Gallery & Studio</span>
+                </div>
+
+                <h1 class="font-serif text-5xl sm:text-7xl lg:text-8xl text-neutral-950 leading-tight">
+                    Where Soul <br>Meets <span class="italic text-brand-gold">Digital Mosaic</span>.
+                </h1>
+
+                <!-- Core quote block from Amalie -->
+                <blockquote class="border-l-2 border-brand-gold pl-6 py-1 italic text-neutral-700 text-lg sm:text-xl font-light leading-relaxed max-w-2xl">
+                    "I paint because I have to. I paint my prayers of fury... My prayers of calm. My hurting prayers..."
+                    <cite class="block not-italic text-xs tracking-widest text-brand-gold uppercase mt-2 font-bold font-sans">— Amalie Baker</cite>
+                </blockquote>
+
+                <p class="text-brand-softGrey text-base max-w-xl font-light leading-relaxed">
+                    St. Paul digital artist translating raw human sentiment, memory, and personal legacies into highly-textured, explosive, multi-color digital masterpieces.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#gallery" class="inline-flex items-center justify-center px-8 py-4 bg-neutral-950 text-white font-bold text-xs uppercase tracking-widest hover:bg-neutral-800 transition duration-300 shadow-md hover:shadow-lg">
+                        <i class="fa-solid fa-compass mr-2"></i> Explore Portfolio
+                    </a>
+                    <a href="#estimator" class="inline-flex items-center justify-center px-8 py-4 border border-neutral-300 text-neutral-800 bg-white font-bold text-xs uppercase tracking-widest hover:bg-neutral-50 transition duration-300 shadow-sm">
+                        <i class="fa-solid fa-sliders mr-2"></i> Commission Estimate
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Right: Dynamic Stacked Canvas Collage -->
+            <div class="lg:col-span-5 relative flex justify-center items-center py-8">
+                <!-- Outer decorative frame -->
+                <div class="absolute -inset-4 border border-neutral-200 rounded-2xl pointer-events-none hidden sm:block"></div>
+                
+                <!-- Main floating canvas -->
+                <div class="relative w-full max-w-[340px] aspect-[4/5] bg-white shadow-xl overflow-hidden group border border-neutral-200 transform rotate-1 hover:rotate-0 transition duration-500 z-10 hover:shadow-2xl">
+                    <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/berealbeyou.jpg" 
+                         alt="Be Real Be You" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+                         onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Be+Real+Be+You'">
+                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-6 pt-12">
+                        <p class="text-[10px] tracking-widest text-brand-gold uppercase font-bold">Featured Masterpiece</p>
+                        <h3 class="font-serif text-xl text-white mt-1">Be Real, Be You</h3>
+                    </div>
+                </div>
+
+                <!-- Secondary offset floating canvases -->
+                <div class="absolute -right-4 -bottom-4 w-[160px] aspect-[1/1] bg-white shadow-lg overflow-hidden border border-neutral-200 transform -rotate-6 hover:rotate-0 transition duration-500 z-20 hidden sm:block">
+                    <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/littlethings.jpg" 
+                         alt="Little Things" 
+                         class="w-full h-full object-cover"
+                         onerror="this.src='https://placehold.co/160x160/F4F4F5/18181B?text=Little+Things'">
+                </div>
+
+                <div class="absolute -left-8 -top-4 w-[140px] aspect-[4/5] bg-white shadow-lg overflow-hidden border border-neutral-200 transform rotate-12 hover:rotate-0 transition duration-500 z-0 hidden sm:block">
+                    <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/loveme.jpg" 
+                         alt="Love Me" 
+                         class="w-full h-full object-cover"
+                         onerror="this.src='https://placehold.co/140x175/F4F4F5/18181B?text=Love+Me'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <a href="#about" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-neutral-500 hover:text-black transition duration-300">
+            <span class="text-[10px] tracking-[0.2em] uppercase mb-2">The Philosophy</span>
+            <span class="animate-bounce"><i class="fa-solid fa-chevron-down text-sm"></i></span>
+        </a>
+    </section>
+
+    <!-- Section: About / Philosophy (Vincent Van Gogh Quote) -->
+    <section id="about" class="py-24 bg-white border-t border-b border-neutral-200 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-neutral-100 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-neutral-100 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Quote Block left side -->
+                <div class="lg:col-span-5 flex flex-col justify-center text-center lg:text-left border-b lg:border-b-0 lg:border-r border-neutral-200 pb-12 lg:pb-0 lg:pr-12">
+                    <i class="fa-solid fa-quote-left text-neutral-200 text-6xl mb-6"></i>
+                    <p class="font-serif text-3xl sm:text-4xl lg:text-5xl italic text-neutral-900 leading-snug">
+                        “I want to touch people with my art. I want them to say 'he feels deeply, he feels tenderly.'”
+                    </p>
+                    <p class="text-xs uppercase tracking-[0.2em] text-brand-gold font-bold mt-6">— Vincent Van Gogh</p>
+                </div>
+
+                <!-- Story Block right side -->
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-xs tracking-[0.2em] text-brand-gold uppercase font-bold">Behind the Palette</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl text-neutral-950">Meet Amalie Baker</h2>
+                    <p class="text-brand-softGrey leading-relaxed font-light">
+                        Operating from her quiet sanctuary in Saint Paul, Minnesota, Amalie translates visual aesthetics into profound, resonant emotion. She views digital portraiture not merely as layout and color mapping, but as an intimate channel of healing, reflection, and quiet grace.
+                    </p>
+                    <p class="text-brand-softGrey leading-relaxed font-light">
+                        Her signature style features complex, mosaic-like brushstrokes. She layers rich neon-vibrancy with quiet, grounding pastels to reflect the beautifully messy contradictions of human nature. This fusion of heavy texture and digital painting brings a tangible, high-definition presence to any custom print or screen.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="p-6 bg-brand-lightBg border border-neutral-200">
+                            <span class="block font-serif text-3xl text-neutral-950 font-bold">4.0 / 4</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-widest mt-1 block font-semibold">Community Rated</span>
+                        </div>
+                        <div class="p-6 bg-brand-lightBg border border-neutral-200">
+                            <span class="block font-serif text-3xl text-neutral-950 font-bold">100%</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-widest mt-1 block font-semibold">Emotional Dedication</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive USP / Texture Showcase -->
+    <section id="usp" class="py-24 bg-brand-lightBg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 mb-16">
+            <span class="text-xs tracking-[0.2em] text-brand-gold uppercase font-bold">Our Signature Edge</span>
+            <h2 class="font-serif text-4xl sm:text-5xl text-neutral-950">Experience High-Definition Digital Texture</h2>
+            <p class="text-brand-softGrey max-w-2xl mx-auto font-light">
+                Her unique selling proposition lies in her painstaking mosaic layering. Every portrait is composed of thousands of digital glass-like or paint-splattered particles that give a powerful, dynamic depth of field.
+            </p>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Dynamic Side-by-Side Zoom / Slider Simulator -->
+            <div class="bg-white border border-neutral-200 rounded-none p-4 sm:p-8 shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    
+                    <!-- Texture Detail Visual -->
+                    <div class="relative group overflow-hidden border border-neutral-200 aspect-[4/5] bg-neutral-100">
+                        <!-- Standard portrait simulation -->
+                        <img id="texture-demo-img" 
+                             src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/amelia.jpg" 
+                             alt="Detail zoom" 
+                             class="w-full h-full object-cover transition-all duration-700 scale-100"
+                             onerror="this.src='https://placehold.co/500x600/F4F4F5/18181B?text=Texture+Showcase'">
+                        
+                        <!-- Glow grid helper -->
+                        <div class="absolute inset-0 border-2 border-neutral-950/10 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
+                    </div>
+
+                    <!-- Texture Controls & Story -->
+                    <div class="space-y-6">
+                        <h3 class="font-serif text-2xl text-neutral-950">Visual Depth Simulator</h3>
+                        <p class="text-sm text-brand-softGrey leading-relaxed font-light">
+                            Use the quick presets below to experience how the flat portrait reference adapts into Amalie's textured, emotional mosaic paint depth. Notice the rich play of pastel lights and harsh shadows.
+                        </p>
+
+                        <!-- Presets Trigger JS change -->
+                        <div class="space-y-4">
+                            <button onclick="changeTextureDemo('https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/amelia.jpg', this)" 
+                                    class="w-full text-left p-4 bg-neutral-50 border-l-2 border-neutral-950 flex justify-between items-center transition duration-300 hover:bg-neutral-100 texture-btn">
+                                <div>
+                                    <h4 class="text-sm font-bold text-neutral-950">Signature Blend</h4>
+                                    <p class="text-xs text-neutral-500 mt-1">Rich contrast of vibrant pinks, deep blues, and structural textures.</p>
+                                </div>
+                                <i class="fa-solid fa-circle-play text-neutral-950 text-lg"></i>
+                            </button>
+
+                            <button onclick="changeTextureDemo('https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/oldwomen2.jpg', this)" 
+                                    class="w-full text-left p-4 bg-white border border-neutral-200 border-l-2 border-l-transparent flex justify-between items-center transition duration-300 hover:bg-neutral-50 texture-btn">
+                                <div>
+                                    <h4 class="text-sm font-bold text-neutral-950">Emotional Wisdom</h4>
+                                    <p class="text-xs text-neutral-500 mt-1">Complex, detailed highlighting of older generation portraits with heavy texturing.</p>
+                                </div>
+                                <i class="fa-solid fa-circle-play text-neutral-400 text-lg"></i>
+                            </button>
+
+                            <button onclick="changeTextureDemo('https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/courage.jpg', this)" 
+                                    class="w-full text-left p-4 bg-white border border-neutral-200 border-l-2 border-l-transparent flex justify-between items-center transition duration-300 hover:bg-neutral-50 texture-btn">
+                                <div>
+                                    <h4 class="text-sm font-bold text-neutral-950">Vibrant Courage</h4>
+                                    <p class="text-xs text-neutral-500 mt-1">Fierce, expressive splash art with striking visual density.</p>
+                                </div>
+                                <i class="fa-solid fa-circle-play text-neutral-400 text-lg"></i>
+                            </button>
+                        </div>
+
+                        <div class="p-4 bg-neutral-100/50 border border-neutral-200 text-xs italic text-neutral-700 flex items-center gap-3">
+                            <i class="fa-solid fa-info-circle text-sm flex-shrink-0 text-brand-gold"></i>
+                            <span>All physical print orders are rendered as gallery-wrapped Giclée canvases to preserve maximum texture depth.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Art Gallery (Categorized Grid + Custom Lightbox) -->
+    <section id="gallery" class="py-24 bg-white border-t border-neutral-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-xs tracking-[0.2em] text-brand-gold uppercase font-bold">Interactive Showcase</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl text-neutral-950 mt-2">The Studio Collections</h2>
+                </div>
+                <!-- Category Filter Controls -->
+                <div class="flex flex-wrap gap-2 text-xs font-bold tracking-widest uppercase">
+                    <button onclick="filterGallery('all', this)" class="px-5 py-2.5 bg-neutral-950 text-white filter-btn transition duration-300">All</button>
+                    <button onclick="filterGallery('portraits', this)" class="px-5 py-2.5 bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-black filter-btn transition duration-300">Portraits</button>
+                    <button onclick="filterGallery('conceptual', this)" class="px-5 py-2.5 bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-black filter-btn transition duration-300">Conceptual</button>
+                    <button onclick="filterGallery('legacy', this)" class="px-5 py-2.5 bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-black filter-btn transition duration-300">Life & Legacies</button>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="portraits" onclick="openLightbox(0)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/amelia.jpg" alt="Amelia" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Amelia'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Portraits</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Deep Blue & Violet Profile</h3>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="conceptual" onclick="openLightbox(1)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/littlethings.jpg" alt="Little Things" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Little+Things'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Conceptual</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">The Beautiful Little Things</h3>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="conceptual" onclick="openLightbox(2)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/loveme.jpg" alt="Love Me" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Love+Me'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Conceptual</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Love Me, Deeply</h3>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="legacy" onclick="openLightbox(3)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/oldwomen.jpg" alt="Legacy I" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Old+Women+1'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Life & Legacies</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Generations of Grace I</h3>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="legacy" onclick="openLightbox(4)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/oldwomen1.jpg" alt="Legacy II" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Old+Women+2'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Life & Legacies</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Generations of Grace II</h3>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="legacy" onclick="openLightbox(5)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/oldwomen2.jpg" alt="Legacy III" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Old+Women+3'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Life & Legacies</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Generations of Grace III</h3>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="legacy" onclick="openLightbox(6)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/oldwomen4.jpg" alt="Legacy IV" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Old+Women+4'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Life & Legacies</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Generations of Grace IV</h3>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="portraits" onclick="openLightbox(7)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/courage.jpg" alt="Courage" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Courage'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Portraits</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Courage Under Pressure</h3>
+                    </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="portraits" onclick="openLightbox(8)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/berealbeyou.jpg" alt="Be Real Be You" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Be+Real+Be+You'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Portraits</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Be Real, Be You</h3>
+                    </div>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="portraits" onclick="openLightbox(9)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia7.jpg" alt="Portrait III" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Amelia+7'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Portraits</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Melancholy & Pastel Tones</h3>
+                    </div>
+                </div>
+
+                <!-- Card 11 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="portraits" onclick="openLightbox(10)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia6.jpg" alt="Portrait IV" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Amelia+6'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Portraits</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Fiery Gaze Profile</h3>
+                    </div>
+                </div>
+
+                <!-- Card 12 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="portraits" onclick="openLightbox(11)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia5.jpg" alt="Portrait V" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Amelia+5'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Portraits</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Splattered Dreams Profile</h3>
+                    </div>
+                </div>
+
+                <!-- Card 13 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="conceptual" onclick="openLightbox(12)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia4.jpg" alt="Conceptual V" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Amelia+4'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Conceptual</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Tainted Pastel Love</h3>
+                    </div>
+                </div>
+
+                <!-- Card 14 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="portraits" onclick="openLightbox(13)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia3.jpg" alt="Portrait VI" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Amelia+3'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Portraits</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Staring into Eternity</h3>
+                    </div>
+                </div>
+
+                <!-- Card 15 -->
+                <div class="gallery-item group bg-white border border-neutral-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition duration-300" data-category="portraits" onclick="openLightbox(14)">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia2.jpg" alt="Portrait VII" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/F4F4F5/18181B?text=Amelia+2'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="p-3 bg-white text-neutral-950 rounded-full transform translate-y-4 group-hover:translate-y-0 transition duration-300 shadow">
+                                <i class="fa-solid fa-expand text-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-neutral-100">
+                        <span class="text-[10px] text-brand-gold uppercase tracking-widest font-bold">Portraits</span>
+                        <h3 class="font-serif text-lg text-neutral-900 mt-1">Tainted Whispers</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Commission Estimate Pricing Tool (Interactive Estimator) -->
+    <section id="estimator" class="py-24 bg-brand-lightBg border-b border-neutral-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Pricing Tool Copy -->
+                <div class="lg:col-span-5 space-y-6 text-left">
+                    <span class="text-xs tracking-[0.2em] text-brand-gold uppercase font-bold">Transparent Pricing</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl text-neutral-950">Create Your Custom Portrait Estimate</h2>
+                    <p class="text-brand-softGrey font-light leading-relaxed">
+                        Ready to commission your own personalized digital painting or high-texture physical canvas? Adjust our interactive calculator on the right to discover standard cost options and print finishes.
+                    </p>
+                    <p class="text-brand-softGrey font-light leading-relaxed">
+                        Upon finalizing your calculation, click <span class="text-neutral-950 font-bold">Pre-fill Inquiry</span>. This will automatically translate your parameters directly into our booking form below!
+                    </p>
+                    
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-start gap-3">
+                            <span class="p-2 bg-neutral-200 text-neutral-800 mt-1"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+                            <div>
+                                <h4 class="text-sm font-bold text-neutral-950">1. Share Your Photo</h4>
+                                <p class="text-xs text-neutral-500">Provide high-quality reference snapshots of subjects or beloved memories.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="p-2 bg-neutral-200 text-neutral-800 mt-1"><i class="fa-solid fa-palette"></i></span>
+                            <div>
+                                <h4 class="text-sm font-bold text-neutral-950">2. Color Guidance</h4>
+                                <p class="text-xs text-neutral-500">Request specific emotional motifs: fury red, calm gold, or melancholy violet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Interactive Calculator Panel -->
+                <div class="lg:col-span-7 bg-white border border-neutral-200 p-6 sm:p-10 space-y-6 shadow-xl relative">
+                    <div class="absolute -top-3 left-6 px-4 py-1 bg-neutral-950 text-white text-[10px] font-bold uppercase tracking-widest">
+                        Interactive Quote Builder
+                    </div>
+
+                    <!-- Step 1: Medium / Print Finish -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-neutral-900 mb-3">1. Select Medium & Finish</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <button onclick="selectOption('medium', 'digital', 150, this)" class="option-btn p-4 bg-neutral-950 border border-neutral-950 text-white text-left transition duration-300">
+                                <span class="block text-sm font-bold">Ultra HD Digital</span>
+                                <span class="block text-xs text-brand-gold mt-1">Starting $150</span>
+                            </button>
+                            <button onclick="selectOption('medium', 'canvas12', 290, this)" class="option-btn p-4 bg-white border border-neutral-200 hover:border-neutral-400 text-neutral-900 text-left transition duration-300">
+                                <span class="block text-sm font-bold">12"x12" Canvas</span>
+                                <span class="block text-xs text-neutral-500 mt-1">Starting $290</span>
+                            </button>
+                            <button onclick="selectOption('medium', 'canvas24', 450, this)" class="option-btn p-4 bg-white border border-neutral-200 hover:border-neutral-400 text-neutral-900 text-left transition duration-300">
+                                <span class="block text-sm font-bold">24"x24" Canvas</span>
+                                <span class="block text-xs text-neutral-500 mt-1">Starting $450</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Number of Human/Pet Subjects -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-neutral-900 mb-3">2. Number of Characters / Subjects</label>
+                        <div class="grid grid-cols-4 gap-3 text-center">
+                            <button onclick="selectOption('subjects', '1', 0, this)" class="option-btn-sub p-3 bg-neutral-950 border border-neutral-950 text-white font-bold text-sm transition duration-300">1</button>
+                            <button onclick="selectOption('subjects', '2', 80, this)" class="option-btn-sub p-3 bg-white border border-neutral-200 text-neutral-800 hover:border-neutral-400 font-bold text-sm transition duration-300">2 (+$80)</button>
+                            <button onclick="selectOption('subjects', '3', 150, this)" class="option-btn-sub p-3 bg-white border border-neutral-200 text-neutral-800 hover:border-neutral-400 font-bold text-sm transition duration-300">3 (+$150)</button>
+                            <button onclick="selectOption('subjects', '4+', 220, this)" class="option-btn-sub p-3 bg-white border border-neutral-200 text-neutral-800 hover:border-neutral-400 font-bold text-sm transition duration-300">4+ (+$220)</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Color Palette Mode -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-neutral-900 mb-3">3. Color Palette Direction</label>
+                        <select id="calc-palette" onchange="updateCalculatedTotal()" class="w-full bg-white border border-neutral-200 text-neutral-800 text-sm p-4 focus:outline-none focus:border-neutral-400 transition">
+                            <option value="signature">Signature Neon-Pastel Mosaic (Default)</option>
+                            <option value="fury">Fury & Fire (Reds, Oranges, Golds)</option>
+                            <option value="calm">Calm & Silence (Soothed Blues, Teals)</option>
+                            <option value="memorial">Legacy Portrait (Soft, Comforting Golds & Silvers)</option>
+                        </select>
+                    </div>
+
+                    <!-- Calculated Output Display -->
+                    <div class="border-t border-neutral-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div>
+                            <span class="block text-xs uppercase tracking-widest text-neutral-500">Estimated Total Quote</span>
+                            <span class="block font-serif text-4xl text-neutral-950 font-bold mt-1" id="calculated-total">$150.00</span>
+                        </div>
+                        <button onclick="prefillForm()" class="w-full sm:w-auto px-8 py-4 bg-neutral-950 text-white text-xs font-bold uppercase tracking-widest hover:bg-neutral-800 transition duration-300 shadow-md">
+                            Pre-fill My Inquiry
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Legacy / Memorial Dedicated Spotlight Section (Xerxes tribute context) -->
+    <section class="py-24 bg-white border-b border-neutral-200 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+            <i class="fa-solid fa-heart text-brand-crimson text-3xl animate-pulse"></i>
+            <h2 class="font-serif text-4xl sm:text-5xl text-neutral-950">Honoring Loved Ones & Legacies</h2>
+            <p class="text-brand-softGrey leading-relaxed font-light text-lg italic">
+                "For Rossman, with so much love... may you truly rest in peace, my brother. You were a force of nature, and a true lover... free from the chains of this world. Free from all that held you here."
+            </p>
+            <p class="text-neutral-600 text-sm max-w-2xl mx-auto font-light leading-relaxed">
+                Many of Amalie's most beloved commission requests are created to honor loved ones who have passed. She specializes in crafting deep, light-filled memorial portraits that celebrate a life unchained from physical pain—bringing endless comfort, quiet tears, and lingering memories directly onto canvas.
+            </p>
+            <div class="inline-flex gap-6 justify-center items-center">
+                <span class="h-px w-12 bg-neutral-300"></span>
+                <span class="text-xs uppercase tracking-[0.3em] text-brand-gold font-bold">In Loving Memory of Rossman (Xerxes Seales)</span>
+                <span class="h-px w-12 bg-neutral-300"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Ratings & Reviews Section -->
+    <section class="py-24 bg-brand-lightBg border-b border-neutral-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <span class="text-xs tracking-[0.2em] text-brand-gold uppercase font-bold">Community Reflections</span>
+                <h2 class="font-serif text-4xl sm:text-5xl text-neutral-950">Unfiltered Reviews</h2>
+                <div class="flex justify-center items-center gap-1 text-brand-gold">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <span class="text-xs text-neutral-500 ml-2 font-bold">4 Verified Reviews</span>
+                </div>
+            </div>
+
+            <!-- Review Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Review 1 -->
+                <div class="p-8 bg-white border border-neutral-200 space-y-4 shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-neutral-900 text-sm">St. Paul Local Art Enthusiast</span>
+                        <div class="text-brand-gold text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    </div>
+                    <p class="text-brand-softGrey text-sm italic font-light leading-relaxed">
+                        "Seeing Amalie's portrait in our living room brings an instant wave of emotion. The texture and lighting captures the true essence of human vulnerability perfectly."
+                    </p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="p-8 bg-white border border-neutral-200 space-y-4 shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-neutral-900 text-sm">Legacy Memorial Client</span>
+                        <div class="text-brand-gold text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    </div>
+                    <p class="text-brand-softGrey text-sm italic font-light leading-relaxed">
+                        "She captured our late brother so beautifully. The colors, the gold mosaic details, the sheer tender depth. It gave our family a beautiful sense of peace we couldn't find elsewhere."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Contact & Booking Form with Simulated File Upload -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                
+                <!-- Left: Studio info, direct channels & embedded Map placeholder -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-xs tracking-[0.2em] text-brand-gold uppercase font-bold">Get In Touch</span>
+                        <h2 class="font-serif text-4xl sm:text-5xl text-neutral-950 mt-2">Connect with Amalie</h2>
+                        <p class="text-brand-softGrey mt-4 font-light leading-relaxed">
+                            Have questions, need custom sizing, or want to discuss a deeply complex tribute portrait? Fill out our studio inquiry sheet.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 text-neutral-700 hover:text-black transition">
+                            <span class="w-10 h-10 bg-neutral-100 border border-neutral-200 flex items-center justify-center text-neutral-900 text-sm"><i class="fa-solid fa-map-marker-alt"></i></span>
+                            <div>
+                                <span class="block text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Studio Gallery</span>
+                                <span class="text-sm">913 Marshall Ave., Saint Paul, MN, US</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 text-neutral-700 hover:text-black transition">
+                            <span class="w-10 h-10 bg-neutral-100 border border-neutral-200 flex items-center justify-center text-neutral-900 text-sm"><i class="fa-solid fa-phone"></i></span>
+                            <div>
+                                <span class="block text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Direct Call</span>
+                                <span class="text-sm">+1 (561) 385-3626</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 text-neutral-700 hover:text-black transition">
+                            <span class="w-10 h-10 bg-neutral-100 border border-neutral-200 flex items-center justify-center text-neutral-900 text-sm"><i class="fa-solid fa-envelope"></i></span>
+                            <div>
+                                <span class="block text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Email Address</span>
+                                <span class="text-sm">amaliemarie74@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Mock Studio map -->
+                    <div class="w-full h-48 bg-neutral-100 border border-neutral-200 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 bg-neutral-50/50 flex flex-col justify-center items-center text-center p-6 space-y-2">
+                            <i class="fa-solid fa-map text-neutral-700 text-2xl"></i>
+                            <h4 class="text-sm font-bold text-neutral-900">Saint Paul Studio Location</h4>
+                            <p class="text-[11px] text-neutral-500">913 Marshall Ave, St Paul, MN 55104</p>
+                            <a href="https://maps.google.com/?q=913+Marshall+Ave,+Saint+Paul,+MN" target="_blank" class="text-xs text-brand-gold font-bold underline hover:text-neutral-800 transition mt-2">Open in Google Maps</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: High fidelity contact submission form with simulated photo upload -->
+                <div class="lg:col-span-7 bg-white border border-neutral-200 p-6 sm:p-10 shadow-lg">
+                    <form id="studio-contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-neutral-700 font-bold mb-2">Full Name</label>
+                                <input type="text" required placeholder="John Doe" class="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm p-4 focus:outline-none focus:border-neutral-400 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-neutral-700 font-bold mb-2">Email Address</label>
+                                <input type="email" required placeholder="johndoe@email.com" class="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm p-4 focus:outline-none focus:border-neutral-400 transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-neutral-700 font-bold mb-2">Subject / Message Intent</label>
+                            <select id="form-intent" class="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm p-4 focus:outline-none focus:border-neutral-400 transition">
+                                <option value="general">General Studio Inquiry / Visit Request</option>
+                                <option value="commission">Custom Commission Request</option>
+                                <option value="memorial">Legacy & Memorial Art Tribute</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-neutral-700 font-bold mb-2">Reference Image Upload (For Commission)</label>
+                            <div class="relative w-full h-32 bg-neutral-50 border-2 border-dashed border-neutral-200 hover:border-neutral-400 transition flex flex-col justify-center items-center cursor-pointer p-4" onclick="triggerFileInput()">
+                                <input type="file" id="file-uploader" class="hidden" onchange="previewUploadedFile(event)">
+                                <div id="uploader-placeholder" class="text-center space-y-1 text-neutral-500">
+                                    <i class="fa-solid fa-cloud-arrow-up text-xl text-neutral-600"></i>
+                                    <p class="text-xs font-bold text-neutral-700">Click to select photo or portrait reference</p>
+                                    <p class="text-[10px] text-neutral-400">JPG, PNG or PDF (Max 15MB)</p>
+                                </div>
+                                <div id="uploader-preview" class="hidden flex items-center space-x-3 w-full justify-center">
+                                    <i class="fa-solid fa-circle-check text-green-600 text-lg"></i>
+                                    <span id="uploaded-filename" class="text-xs text-neutral-950 font-bold truncate max-w-[200px]">No file selected</span>
+                                    <button type="button" onclick="resetUploadedFile(event)" class="text-xs text-brand-crimson underline hover:text-red-700">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-neutral-700 font-bold mb-2">Your Vision & Design Requirements</label>
+                            <textarea id="form-message" required rows="5" placeholder="Describe the personality of your subject, custom color choices, emotional details, or pricing estimate details..." class="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm p-4 focus:outline-none focus:border-neutral-400 transition leading-relaxed"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-neutral-950 text-white text-xs font-bold uppercase tracking-widest hover:bg-neutral-800 transition duration-300 shadow-md">
+                            Send Secure Request
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Lightbox Modal Component (Pure Gallery dark theme to let art illuminate) -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm hidden flex-col justify-between p-4">
+        <!-- Close overlay trigger -->
+        <div class="absolute inset-0 cursor-default" onclick="closeLightbox()"></div>
+        
+        <!-- Header Controls -->
+        <div class="relative z-10 flex justify-between items-center w-full max-w-7xl mx-auto py-2">
+            <div>
+                <span id="lightbox-category" class="text-xs uppercase tracking-widest text-brand-gold font-bold">Category</span>
+                <h4 id="lightbox-title" class="font-serif text-lg sm:text-2xl text-white">Artwork Title</h4>
+            </div>
+            <button onclick="closeLightbox()" class="text-white hover:text-brand-gold text-2xl p-2 transition focus:outline-none">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Central Image View & Navigation Controls -->
+        <div class="relative z-10 flex items-center justify-between w-full max-w-7xl mx-auto my-auto gap-4">
+            <!-- Left Arrow -->
+            <button onclick="prevLightboxImage()" class="text-white/50 hover:text-brand-gold text-3xl sm:text-5xl p-4 transition focus:outline-none">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+
+            <!-- Main Dynamic Image Container -->
+            <div class="max-w-[85vw] max-h-[70vh] flex justify-center items-center overflow-hidden bg-neutral-900/30 border border-neutral-800">
+                <img id="lightbox-img" src="" alt="Active Artwork" class="object-contain max-h-[70vh] w-auto">
+            </div>
+
+            <!-- Right Arrow -->
+            <button onclick="nextLightboxImage()" class="text-white/50 hover:text-brand-gold text-3xl sm:text-5xl p-4 transition focus:outline-none">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+        </div>
+
+        <!-- Lightbox Footer / Meta Actions -->
+        <div class="relative z-10 w-full max-w-md mx-auto text-center pb-6 space-y-4">
+            <p class="text-xs text-neutral-300 font-light leading-relaxed">
+                Appreciate the highly complex multi-color mosaic strokes and digital pastels by zooming closer.
+            </p>
+            <div class="flex justify-center gap-4">
+                <button onclick="inquireOnLightbox()" class="px-6 py-2.5 bg-brand-gold text-neutral-950 text-xs font-bold uppercase tracking-widest hover:bg-white transition duration-300">
+                    Inquire on this Piece
+                </button>
+                <button onclick="copyLightboxUrl()" class="px-6 py-2.5 border border-white/20 text-white text-xs font-bold uppercase tracking-widest hover:bg-white/10 transition duration-300">
+                    <i class="fa-solid fa-share-nodes mr-2"></i> Share Link
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Footer -->
+    <footer class="bg-neutral-950 text-neutral-300 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+            
+            <div class="space-y-4">
+                <a href="#" class="flex flex-col">
+                    <span class="font-serif text-2xl tracking-widest text-white font-bold">AMALIE BAKER</span>
+                    <span class="text-[10px] tracking-[0.3em] text-brand-gold font-medium uppercase -mt-1">Fine Art Studio</span>
+                </a>
+                <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                    Transforming real emotions, beautiful pain, and deep human memories into high-fidelity textured digital canvases in St. Paul, Minnesota.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-widest text-brand-gold font-bold mb-4">Navigations</h4>
+                <ul class="space-y-2 text-xs text-neutral-400">
+                    <li><a href="#about" class="hover:text-white transition">The Philosophy</a></li>
+                    <li><a href="#usp" class="hover:text-white transition">Our Texture</a></li>
+                    <li><a href="#gallery" class="hover:text-white transition">The Studio Gallery</a></li>
+                    <li><a href="#estimator" class="hover:text-white transition">Commission Pricing Estimator</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-widest text-brand-gold font-bold mb-4">Studio Info</h4>
+                <ul class="space-y-2 text-xs text-neutral-400">
+                    <li>📍 913 Marshall Ave, Saint Paul, MN</li>
+                    <li>📞 +1 (561) 385-3626</li>
+                    <li>✉️ amaliemarie74@gmail.com</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-widest text-brand-gold font-bold mb-4">Find Me On Socials</h4>
+                <div class="flex gap-4">
+                    <a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:text-brand-gold transition duration-300">
+                        <i class="fa-brands fa-facebook-f text-sm"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:text-brand-gold transition duration-300">
+                        <i class="fa-brands fa-instagram text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-neutral-900 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-500 gap-4">
+            <p>© 2026 Amalie Baker Art Studio. All Rights Reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="hover:underline">Privacy Policy</a>
+                <a href="#" class="hover:underline">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Client-side Scripting -->
+    <script>
+        // Responsive Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile dropdown when a link is clicked
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Texture Demo Preview Switcher
+        function changeTextureDemo(imageUrl, button) {
+            const demoImg = document.getElementById('texture-demo-img');
+            
+            // Fade-out preview image effect
+            demoImg.style.opacity = 0;
+            
+            setTimeout(() => {
+                demoImg.src = imageUrl;
+                demoImg.style.opacity = 1;
+            }, 300);
+
+            // Update button border/styling states
+            const buttons = document.querySelectorAll('.texture-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-neutral-50', 'border-neutral-950');
+                btn.classList.add('bg-white', 'border-neutral-200');
+                btn.style.borderLeftColor = 'transparent';
+                btn.querySelector('i').className = 'fa-solid fa-circle-play text-neutral-400 text-lg';
+            });
+
+            button.classList.remove('bg-white', 'border-neutral-200');
+            button.classList.add('bg-neutral-50', 'border-neutral-950');
+            button.style.borderLeftColor = '#18181B';
+            button.querySelector('i').className = 'fa-solid fa-circle-play text-neutral-950 text-lg';
+        }
+
+        // Complete Gallery Items Dataset for robust Lightbox Navigation
+        const galleryItems = [
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/amelia.jpg", title: "Deep Blue & Violet Profile", category: "Portraits" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/littlethings.jpg", title: "The Beautiful Little Things", category: "Conceptual" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/loveme.jpg", title: "Love Me, Deeply", category: "Conceptual" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/oldwomen.jpg", title: "Generations of Grace I", category: "Life & Legacies" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/oldwomen1.jpg", title: "Generations of Grace II", category: "Life & Legacies" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/oldwomen2.jpg", title: "Generations of Grace III", category: "Life & Legacies" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/oldwomen4.jpg", title: "Generations of Grace IV", category: "Life & Legacies" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/courage.jpg", title: "Courage Under Pressure", category: "Portraits" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/berealbeyou.jpg", title: "Be Real, Be You", category: "Portraits" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia7.jpg", title: "Melancholy & Pastel Tones", category: "Portraits" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia6.jpg", title: "Fiery Gaze Profile", category: "Portraits" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia5.jpg", title: "Splattered Dreams Profile", category: "Portraits" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia4.jpg", title: "Tainted Pastel Love", category: "Conceptual" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia3.jpg", title: "Staring into Eternity", category: "Portraits" },
+            { src: "https://raw.githubusercontent.com/Creativetugs/Ameliabaker/refs/heads/main/Amelia2.jpg", title: "Tainted Whispers", category: "Portraits" }
+        ];
+
+        let currentLightboxIndex = 0;
+
+        // Custom filter gallery categories
+        function filterGallery(category, button) {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            // Toggle filter button styles
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.className = "px-5 py-2.5 bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-black filter-btn transition duration-300";
+            });
+            button.className = "px-5 py-2.5 bg-neutral-950 text-white filter-btn transition duration-300 font-bold";
+        }
+
+        // Custom Lightbox Logic
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            updateLightboxContent();
+            document.getElementById('lightbox').classList.remove('hidden');
+            document.getElementById('lightbox').classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+            document.getElementById('lightbox').classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightboxContent() {
+            const item = galleryItems[currentLightboxIndex];
+            document.getElementById('lightbox-img').src = item.src;
+            document.getElementById('lightbox-title').innerText = item.title;
+            document.getElementById('lightbox-category').innerText = item.category;
+        }
+
+        function nextLightboxImage() {
+            currentLightboxIndex = (currentLightboxIndex + 1) % galleryItems.length;
+            updateLightboxContent();
+        }
+
+        function prevLightboxImage() {
+            currentLightboxIndex = (currentLightboxIndex - 1 + galleryItems.length) % galleryItems.length;
+            updateLightboxContent();
+        }
+
+        // Escape key to close lightbox and arrow keys to navigate
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') nextLightboxImage();
+                if (e.key === 'ArrowLeft') prevLightboxImage();
+            }
+        });
+
+        // Trigger inquiry inside dynamic light-box
+        function inquireOnLightbox() {
+            const item = galleryItems[currentLightboxIndex];
+            closeLightbox();
+            document.getElementById('contact').scrollIntoView();
+            document.getElementById('form-intent').value = "commission";
+            document.getElementById('form-message').value = `Hi Amalie, I was exploring your digital gallery and became deeply captivated by your piece "${item.title}". I'd love to commission a custom variation of this...`;
+            showToast(`Pre-filled vision message for "${item.title}"`);
+        }
+
+        function copyLightboxUrl() {
+            const item = galleryItems[currentLightboxIndex];
+            // Since we can't easily fetch window location in iframe, we copy clean string
+            const shareText = `Explore Amalie Baker's digital painting: "${item.title}" - ${item.src}`;
+            const tempInput = document.createElement("input");
+            tempInput.value = shareText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast("Copied shareable link to clipboard!");
+        }
+
+        // Interactive Commission Estimator Calculations
+        let selectedMedium = 'digital';
+        let mediumPrice = 150;
+        let selectedSubjects = '1';
+        let subjectsPrice = 0;
+
+        function selectOption(category, value, price, element) {
+            if (category === 'medium') {
+                selectedMedium = value;
+                mediumPrice = price;
+                const buttons = document.querySelectorAll('.option-btn');
+                buttons.forEach(btn => {
+                    btn.className = "option-btn p-4 bg-white border border-neutral-200 hover:border-neutral-400 text-neutral-900 text-left transition duration-300";
+                    const subtitle = btn.querySelector('.text-neutral-400, .text-brand-gold');
+                    if (subtitle) {
+                        subtitle.className = "block text-xs text-neutral-500 mt-1";
+                    }
+                });
+                element.className = "option-btn p-4 bg-neutral-950 border border-neutral-950 text-white text-left transition duration-300";
+                const activeSubtitle = element.querySelector('.text-neutral-500');
+                if (activeSubtitle) {
+                    activeSubtitle.className = "block text-xs text-brand-gold mt-1 font-bold";
+                }
+            } else if (category === 'subjects') {
+                selectedSubjects = value;
+                subjectsPrice = price;
+                const buttons = document.querySelectorAll('.option-btn-sub');
+                buttons.forEach(btn => {
+                    btn.className = "option-btn-sub p-3 bg-white border border-neutral-200 text-neutral-800 hover:border-neutral-400 font-bold text-sm transition duration-300";
+                });
+                element.className = "option-btn-sub p-3 bg-neutral-950 border border-neutral-950 text-white font-bold text-sm transition duration-300";
+            }
+            updateCalculatedTotal();
+        }
+
+        function updateCalculatedTotal() {
+            const total = mediumPrice + subjectsPrice;
+            document.getElementById('calculated-total').innerText = `$${total}.00`;
+        }
+
+        function prefillForm() {
+            const total = mediumPrice + subjectsPrice;
+            const palette = document.getElementById('calc-palette').options[document.getElementById('calc-palette').selectedIndex].text;
+            
+            document.getElementById('contact').scrollIntoView();
+            document.getElementById('form-intent').value = "commission";
+            
+            let mediumLabel = "Ultra HD Digital File";
+            if(selectedMedium === 'canvas12') mediumLabel = "12x12 Gallery Canvas Print";
+            if(selectedMedium === 'canvas24') mediumLabel = "24x24 Gallery Canvas Print";
+
+            document.getElementById('form-message').value = `Hi Amalie,\n\nI have created a custom quote estimate via your online calculator:\n- Medium: ${mediumLabel}\n- Number of Subjects: ${selectedSubjects}\n- Color Palette motif: ${palette}\n- Estimated Price: $${total}.00\n\nI would love to share my reference photo details and get started!`;
+            
+            showToast("Calculator parameters successfully prefilled below!");
+        }
+
+        // Custom Interactive Reference File Uploader logic
+        function triggerFileInput() {
+            document.getElementById('file-uploader').click();
+        }
+
+        function previewUploadedFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('uploader-placeholder').classList.add('hidden');
+                document.getElementById('uploader-preview').classList.remove('hidden');
+                document.getElementById('uploaded-filename').innerText = file.name;
+                showToast("File uploaded to preview state!");
+            }
+        }
+
+        function resetUploadedFile(event) {
+            event.stopPropagation();
+            document.getElementById('file-uploader').value = '';
+            document.getElementById('uploader-placeholder').classList.remove('hidden');
+            document.getElementById('uploader-preview').classList.add('hidden');
+            showToast("Uploaded file cleared");
+        }
+
+        // Custom Toast Notifications
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = "mb-3 p-4 bg-white border-l-4 border-neutral-950 text-neutral-900 text-xs font-bold uppercase tracking-wider shadow-xl border border-neutral-200 transition duration-500 transform translate-x-full pointer-events-auto flex items-center justify-between gap-6";
+            toast.innerHTML = `
+                <span>${message}</span>
+                <button class="text-neutral-400 hover:text-black" onclick="this.parentElement.remove()"><i class="fa-solid fa-times"></i></button>
+            `;
+            container.appendChild(toast);
+            
+            // Slide in
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+            }, 50);
+
+            // Automatically slide out and destroy
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => { toast.remove(); }, 500);
+            }, 4000);
+        }
+
+        // Form Submission Interception
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            // Perform basic animation
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.innerText = "Transmitting to Studio...";
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.innerText = "Request Sent Successfully";
+                submitBtn.className = "w-full py-4 bg-emerald-800 text-white text-xs font-bold uppercase tracking-widest";
+                showToast("Your deep portrait vision has been sent to Amalie's Inbox!");
+                event.target.reset();
+                document.getElementById('uploader-placeholder').classList.remove('hidden');
+                document.getElementById('uploader-preview').classList.add('hidden');
+            }, 1800);
+        }
+    </script>
+</body>
+</html>
